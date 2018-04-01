@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.test.mapper.SpitterMapper">
+    <select id="getUser" parameterType="int" resultMap="Spitter">
+        SELECT * FROM users WHERE user_id=#{id}
+    </select>
+    <insert id="saveUser" parameterType="springtest.entity.Spitter" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username, password) values (#{nickName},#{password})
+    </insert>
+    <update id="updateUser" parameterType="springtest.entity.Spitter">
+        UPDATE users set username=#{nickName},password=#{password} where user_id=#{id}
+    </update>
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM users WHERE user_id=#{id}
+    </delete>
+
+    <select id="getAllUsers" resultMap="Spitter">
+        SELECT * FROM users
+    </select>
+
+    <select id="getUserByName" parameterType="String" resultMap="Spitter">
+        SELECT * FROM users WHERE username=#{username}
+    </select>
+
+    <resultMap id="Spitter" type="springtest.entity.Spitter" >
+        <id property="id" column="user_id" />
+        <result property="nickName" column="username" />
+        <result property="password" column="password" />
+    </resultMap>
+
+</mapper>
