@@ -7,6 +7,7 @@
   "dependencies": {
     "ajv": "^6.2.0",
     "fs": "0.0.1-security",
+    "immutable": "^3.8.2",
     "lodash": "^4.17.5",
     "nedb": "^1.8.0",
     "react": "^16.2.0",
