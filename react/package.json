@@ -9,6 +9,7 @@
     "fs": "0.0.1-security",
     "immutable": "^3.8.2",
     "lodash": "^4.17.5",
+    "markdown": "^0.5.0",
     "nedb": "^1.8.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

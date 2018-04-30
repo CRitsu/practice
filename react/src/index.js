@@ -1,35 +1,51 @@
-// @flow
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './index.css';
 
 import Spring from './animation/spring';
-import Test from './animation/transition-test';
-// import Db from './db/dbtester';
-import registerServiceWorker from './registerServiceWorker';
+import Animation from './animation/transition-test';
+import Db from './db/dbtester';
 
-const root = document.getElementById('root');
+import config from './config';
 
-if (!root) {
-  throw new Error('Container is missing.');
-}
+const Navigation = () => (
+  <div className="nav">
+    <div className="title">{config.title}</div>
+    <div className="links">
+      {
+        config.links.map(l => (
+          <div key={l.link} className="link" >
+            <Link to={l.link}>{l.label}</Link>
+            <div className="line"/>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+);
+
+const NoMatch = () => (
+  <h1>施工中</h1>
+);
 
 ReactDOM.render(
   <Router>
-    <Switch>
-      <Route exact path="/" >
-        <div>
-          {/* <Test.Demo2 /> */}
-          <Test.Demo1 />
-          {/* <Db /> */}
-          <Link to="/animate" >Animate</Link>
-        </div>
-      </Route>
-      <Route path="/animate" component={Spring} />
-    </Switch>
+    <div>
+      <div className="home">
+        <Link to="/">HOME</Link>
+      </div>
+      <Switch>
+        <Route exact path="/" component={Navigation} />
+
+        <Route path="/spring" component={Spring} />
+        <Route path="/animation" component={Animation.Demo1} />
+        <Route path="/db-tester-nedb" component={Db} />
+
+        <Route component={NoMatch} />
+        
+      </Switch>
+    </div>
   </Router>,
-  root
+  document.getElementById('root')
 );
-registerServiceWorker();

@@ -7,3 +7,43 @@ body {
 #root {
   position: relative;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  line-height: 2em;
+  width: auto;
+}
+
+.home {
+  margin-left: 1em;
+  font-size: 1.5em;
+}
+
+.nav,
+.links,
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  width: fit-content;
+}
+
+.title {
+  font-size: 2em;
+  line-height: 3em;
+}
+
+.line {
+  border-bottom: 1px solid black;
+  width: 0;
+  transition: width .3s ease;
+}
+
+.link:hover .line {
+  width: 100%;
+}
