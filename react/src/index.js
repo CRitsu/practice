@@ -6,6 +6,7 @@ import './index.css';
 import Spring from './animation/spring';
 import Animation from './animation/transition-test';
 import Db from './db/dbtester';
+import Calculator from './calculator/Calculator';
 
 import config from './config';
 
@@ -41,6 +42,7 @@ ReactDOM.render(
         <Route path="/spring" component={Spring} />
         <Route path="/animation" component={Animation.Demo1} />
         <Route path="/db-tester-nedb" component={Db} />
+        <Route path="/calculator-redux" component={Calculator} />
 
         <Route component={NoMatch} />
         
