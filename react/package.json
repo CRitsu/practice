@@ -19,6 +19,7 @@
     "react-scripts": "^1.1.1",
     "react-spring": "^4.0.1",
     "react-transition-group": "^2.2.1",
+    "reduce-reducers": "^0.3.0",
     "redux": "^3.7.2",
     "typings": "^2.1.1"
   },
