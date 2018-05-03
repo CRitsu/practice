@@ -4,57 +4,54 @@ import React from 'react';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import { range } from 'lodash';
+import reducers from './reducers';
+import {
+  input,
+} from './actions';
 
 
-const NumberBox = (props: {number: number, onClick: () => void}) => (
-  <div className="number-box" onClick={props.onClick} >
-    {props.number}
-  </div>
-);
-
-class Calculator extends React.Component<{value: number}> {
+class Calculator extends React.Component<{
+  number: number,
+  operator: string,
+  onClick: number => void,
+}> {
 
   render() {
-    const onClick = () => {};
+
     return (
       <div>
-        <div>Value:{this.props.value}</div>
-        {
-          range(10).map((i) => (
-            <NumberBox 
-              key={i} 
-              number={i} 
-              onClick={onClick} />
-          ))
-        }
+        <div>{this.props.number}</div>
+        <div>
+          {
+            range(10).map(i => (
+              <div key={i} onClick={() => this.props.onClick(i)}>
+                {i}
+              </div>
+            ))
+          }
+        </div>
       </div>
     );
   }
-
 }
 
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD':
-      return 1;
-    default:
-      return 0;
-  }
-};
-
-const store = createStore(reducer);
-const mapToProps = state => ({
-  value: state
+const store = createStore(reducers);
+const mapStateToProps = state => ({
+  number: state.number,
 });
-const C = connect(
-  mapToProps,
+const mapDispatchToProps = dispatch => {
+  return {
+    onClick: number => dispatch(input(number)),
+  };
+};
+const CalculatorContainer = connect(
+   mapStateToProps,
+   mapDispatchToProps
 )(Calculator);
-
-const Cal = (
+const cal =  () => (
   <Provider store={store}>
-    <C />
+    <CalculatorContainer />
   </Provider>
-);
+)
 
-export default Cal;
+export default cal;
