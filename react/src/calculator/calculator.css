@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+.calculator,
+.board,
+.left-board {
+  display: flex;
+}
+.calculator {
+  flex-direction: column;
+}
+
+.result {
+  width: 12em;
+  line-height: 3em;
+}
+
+.board {
+  width: 12em;
+}
+
+.left-board {
+  width: 9em;
+  flex-wrap: wrap-reverse;
+  flex: 0 0 auto;
+}
+
+.button-3-cell,
+.button-box {
+  width: 3em;
+  height: 3em;
+  line-height: 3em;
+  background-color: azure;
+  border: 1px solid white;
+  text-align: center;
+}
+
+.button-3-cell {
+  width: 9em;
+}
