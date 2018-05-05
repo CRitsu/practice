@@ -8,6 +8,9 @@ import reducers from './reducers';
 import {
   input,
   float,
+  evaluate,
+  operator,
+  claer,
   COMPUTE,
 } from './actions';
 
@@ -34,7 +37,10 @@ class Calculator extends React.Component<{
   number: number,
   operator: string,
   handleNumberInput: (number | string) => void,
-  handleFloatInput: (number | string) => void,  
+  handleFloatInput: (number | string) => void,
+  handleEvaluate: () => void,
+  handleOperatorInput: (number | string) => void,
+  handleClear: () => void,
 }> {
 
   render() {
@@ -47,7 +53,7 @@ class Calculator extends React.Component<{
 
             <ButtonBox value="." onClick={this.props.handleFloatInput} />
             <ButtonBox value={0} onClick={this.props.handleNumberInput} />
-            <ButtonBox value="=" onClick={this.props.handleNumberInput} />
+            <ButtonBox value="=" onClick={this.props.handleEvaluate} />
 
             {
               range(1, 10).map(i => (
@@ -55,7 +61,7 @@ class Calculator extends React.Component<{
                   onClick={this.props.handleNumberInput} />
               ))
             }
-            <ButtonBox value="All Clean" onClick={this.props.handleFloatInput}
+            <ButtonBox value="AC" onClick={this.props.handleClear}
               cssClass="button-3-cell" />
           </div>
           <div className="right-board" >
@@ -68,7 +74,7 @@ class Calculator extends React.Component<{
                 COMPUTE.ADD
               ].map((o, i) => (
                 <ButtonBox key={'operator' + i} value={o}
-                  onClick={this.props.handleNumberInput} />
+                  onClick={this.props.handleOperatorInput} />
               ))
             }
           </div>
@@ -91,6 +97,9 @@ const mapDispatchToProps = dispatch => {
   return {
     handleNumberInput: val => dispatch(input(val)),
     handleFloatInput: val => dispatch(float(val)),
+    handleEvaluate: () => dispatch(evaluate()),
+    handleOperatorInput: val => dispatch(operator(val)),
+    handleClear: () => dispatch(claer()),
   };
 };
 

@@ -32,7 +32,7 @@ const NoMatch = () => (
 
 ReactDOM.render(
   <Router>
-    <div>
+    <div className="container" >
       <div className="home">
         <Link to="/">HOME</Link>
       </div>

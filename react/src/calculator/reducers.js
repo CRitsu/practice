@@ -8,7 +8,9 @@ import {
   EVALUATION,
   COMPUTE,
   FLOAT_POINT,
+  CLEAR,
 } from './actions';
+import { removeLeftZero } from './tools';
 
 // float flag
 const FLOAT_MODE = 'FLOAT_MODE';
@@ -35,9 +37,22 @@ const numberReducer = (state, action, isFloat) => {
         let nums = state.split('.');
         if (nums.length === 1) nums.push('');
         nums[1] += action.payload.number;
-        return nums.join('.');
+        return removeLeftZero(nums.join('.'));
       }
-      return state + action.payload.number;
+      return removeLeftZero(state + action.payload.number);
+    case FLOAT_POINT:
+      if (isFloat === FLOAT_MODE) {
+        if (state.split('.').length === 1) {
+          return removeLeftZero(state + '.');
+        }
+      }
+      return state;
+    case OPERATOR_INPUT:
+      if (state === '0') return state;
+      if (action.payload.operator === COMPUTE.PLUS_MINUS) {
+        return /^-/.test(state) ? state.replace('-', '') : '-' + state;
+      }
+      return state;
     default:
       return state;
   }
@@ -50,6 +65,7 @@ const holderInitialReducer = (state = '0') => state;
 const operatorReducer = (state = '', action) => {
   switch (action.type) {
     case OPERATOR_INPUT:
+      if (action.payload.operator === COMPUTE.PLUS_MINUS) return state;
       return action.payload.operator;
     default:
       return state;
@@ -59,6 +75,7 @@ const operatorReducer = (state = '', action) => {
 const operationReducer = (state, action) => {
   switch (action.type) {
     case OPERATOR_INPUT:
+      if (action.payload.operator === COMPUTE.PLUS_MINUS) return state;
       return Object.assign({}, state, {
         holder: state.number,
         number: '0'
@@ -102,6 +119,17 @@ const inputReducer = (state, action) => {
   });
 }
 
+const claerReducer = (state, action) => {
+  if (action.type === CLEAR) {
+    return Object.assign({}, state, {
+      number: '0',
+      holder: '0',
+      operator: '',
+    });
+  }
+  return state;
+}
+
 const rootReducer = combineReducers({
   operator: operatorReducer,
   number: numberInitialReducer,
@@ -113,5 +141,6 @@ export default reduceReducers(
   rootReducer,
   operationReducer,
   evaluateReducer,
-  inputReducer
+  inputReducer,
+  claerReducer,
 )

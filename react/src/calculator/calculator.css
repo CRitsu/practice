@@ -2,40 +2,71 @@
   box-sizing: border-box;
 }
 
+.container,
 .calculator,
 .board,
 .left-board {
   display: flex;
 }
+.container,
 .calculator {
   flex-direction: column;
 }
 
+.calculator {
+  align-self: center;
+  border-left: 1px solid rgb(142, 142, 142);  
+}
+
 .result {
-  width: 12em;
-  line-height: 3em;
+  padding: 0 .5rem;
+  width: 12rem;
+  height: 4rem;
+  line-height: 5rem;
+  text-align: right;
+  font-size: 1rem;
+  color: white;
+  background-color: rgb(153, 153, 153);
+  border: 1px solid rgb(153, 153, 153);
 }
 
 .board {
-  width: 12em;
+  width: 12rem;
+  border-top: 1px solid rgb(142, 142, 142);
 }
 
 .left-board {
-  width: 9em;
+  width: 9rem;
   flex-wrap: wrap-reverse;
   flex: 0 0 auto;
 }
 
 .button-3-cell,
 .button-box {
-  width: 3em;
-  height: 3em;
-  line-height: 3em;
-  background-color: azure;
-  border: 1px solid white;
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  background-color: rgb(224, 224, 224);
+  border-bottom: 1px solid rgb(142, 142, 142);
+  border-right: 1px solid rgb(142, 142, 142);  
   text-align: center;
+  cursor: pointer;
+}
+
+.button-3-cell:active,
+.button-box:active {
+  background-color: rgb(178, 178, 178);
 }
 
 .button-3-cell {
-  width: 9em;
+  width: 9rem;
+}
+
+.right-board .button-box {
+  background-color: #ff9800;
+  color: white;
+}
+
+.right-board .button-box:active {
+  background-color: rgb(185, 119, 55);
 }
