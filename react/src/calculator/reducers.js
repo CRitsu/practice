@@ -75,19 +75,19 @@ const evaluateReducer = (state, action) => {
     switch (state.operator) {
       case COMPUTE.ADD:
         return Object.assign({}, state, {
-          number: holder + number
+          number: '' + (holder + number)
         });
       case COMPUTE.SUBTRACT:
         return Object.assign({}, state, {
-          number: holder - number
+          number: '' + (holder - number)
         });
       case COMPUTE.MULTIPLY:
         return Object.assign({}, state, {
-          number: holder * number
+          number: '' + (holder * number)
         });
       case COMPUTE.DIVIDE:
         return Object.assign({}, state, {
-          number: holder / number
+          number: '' + (holder / number)
         });
       default:
         return state;
