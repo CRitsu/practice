@@ -34,7 +34,8 @@ const ButtonBox = (props: Props) => (
 
 // The calculator UI component
 class Calculator extends React.Component<{
-  number: number,
+  number: number | string,
+  result: number | string,
   operator: string,
   handleNumberInput: (number | string) => void,
   handleFloatInput: (number | string) => void,
@@ -45,23 +46,33 @@ class Calculator extends React.Component<{
 
   render() {
 
+    const {
+      number,
+      result,
+      handleNumberInput,
+      handleFloatInput,
+      handleEvaluate,
+      handleOperatorInput,
+      handleClear
+    } = this.props;
+
     return (
       <div className="calculator" >
-        <div className="result" >{this.props.number}</div>
+        <div className="result" >{result ? result : number}</div>
         <div className="board" >
           <div className="left-board" >
 
-            <ButtonBox value="." onClick={this.props.handleFloatInput} />
-            <ButtonBox value={0} onClick={this.props.handleNumberInput} />
-            <ButtonBox value="=" onClick={this.props.handleEvaluate} />
+            <ButtonBox value="." onClick={handleFloatInput} />
+            <ButtonBox value={0} onClick={handleNumberInput} />
+            <ButtonBox value="=" onClick={handleEvaluate} />
 
             {
               range(1, 10).map(i => (
                 <ButtonBox key={'number' + i} value={i}
-                  onClick={this.props.handleNumberInput} />
+                  onClick={handleNumberInput} />
               ))
             }
-            <ButtonBox value="AC" onClick={this.props.handleClear}
+            <ButtonBox value="AC" onClick={handleClear}
               cssClass="button-3-cell" />
           </div>
           <div className="right-board" >
@@ -74,7 +85,7 @@ class Calculator extends React.Component<{
                 COMPUTE.ADD
               ].map((o, i) => (
                 <ButtonBox key={'operator' + i} value={o}
-                  onClick={this.props.handleOperatorInput} />
+                  onClick={handleOperatorInput} />
               ))
             }
           </div>
@@ -90,6 +101,7 @@ const store = createStore(reducers);
 // map the state to props
 const mapStateToProps = state => ({
   number: state.number,
+  result: state.result,
 });
 
 // map functions to props fro dispatch action

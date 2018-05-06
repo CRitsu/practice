@@ -16,8 +16,33 @@ import { removeLeftZero } from './tools';
 const FLOAT_MODE = 'FLOAT_MODE';
 const INTEGER_MODE = 'INTEGET_MODE';
 
+// Initial the holder
+// holder is for store the last input number and evaluate the result
+const holderInitialReducer = (state = '') => state;
+
+// Initial the operator
+const operatorInitialReducer = (state = '') => state;
+
 // Initial number input to 0
 const numberInitialReducer = (state = '0') => state;
+
+// Initial computed flag
+const computedInitialReducer = (state = false) => state;
+
+// Initial resutl
+const resultInitialReducer = (state = '') => state;
+
+// computed flag 
+const computedReducer = (state, action) => {
+  switch (action.type) {
+    case OPERATOR_INPUT:
+      return true;
+    case NUMBER_INPUT:
+      return false;
+    default:
+      return state;
+  }
+};
 
 const floatReducer = (state = INTEGER_MODE, action) => {
   switch (action.type) {
@@ -58,64 +83,63 @@ const numberReducer = (state, action, isFloat) => {
   }
 };
 
-// Initial the holder
-// holder is for store the last input number and evaluate the result
-const holderInitialReducer = (state = '0') => state;
-
-const operatorReducer = (state = '', action) => {
-  switch (action.type) {
-    case OPERATOR_INPUT:
-      if (action.payload.operator === COMPUTE.PLUS_MINUS) return state;
-      return action.payload.operator;
-    default:
-      return state;
+const operatorReducer = (state, action) => {
+  if (action.type === OPERATOR_INPUT) {
+    if (action.payload.operator === COMPUTE.PLUS_MINUS) return state;
+    let result = !state.computed
+      ? evaluateTool(state.number, state.holder, state.operator)
+      : state.number;
+    return Object.assign({}, state, {
+      holder: result,
+      result: result,
+      operator: action.payload.operator,
+      number: '0',
+      computed: computedReducer(state.computed, action),
+    });
   }
+  return state;
 }
 
-const operationReducer = (state, action) => {
-  switch (action.type) {
-    case OPERATOR_INPUT:
-      if (action.payload.operator === COMPUTE.PLUS_MINUS) return state;
-      return Object.assign({}, state, {
-        holder: state.number,
-        number: '0'
-      });
+const evaluateTool = (number, holder, operator) => {
+  if (!holder) return number;
+  let _holder = Number(holder);
+  let _number = Number(number);
+  switch (operator) {
+    case COMPUTE.ADD:
+      return '' + (_holder + _number);
+    case COMPUTE.SUBTRACT:
+      return '' + (_holder - _number);
+    case COMPUTE.MULTIPLY:
+      return '' + (_holder * _number);
+    case COMPUTE.DIVIDE:
+      return '' + (_holder / _number);
     default:
-      return state;
+      return number;
   }
 }
 
 const evaluateReducer = (state, action) => {
   if (action.type === EVALUATION) {
-    let holder = Number(state.holder);
-    let number = Number(state.number);
-    switch (state.operator) {
-      case COMPUTE.ADD:
-        return Object.assign({}, state, {
-          number: '' + (holder + number)
-        });
-      case COMPUTE.SUBTRACT:
-        return Object.assign({}, state, {
-          number: '' + (holder - number)
-        });
-      case COMPUTE.MULTIPLY:
-        return Object.assign({}, state, {
-          number: '' + (holder * number)
-        });
-      case COMPUTE.DIVIDE:
-        return Object.assign({}, state, {
-          number: '' + (holder / number)
-        });
-      default:
-        return state;
-    }
+    let { holder, number } = state;
+    return Object.assign({}, state, {
+      number: '0',
+      result: evaluateTool(number, holder, state.operator),
+      isFloat: INTEGER_MODE,
+      holder: '',
+    });
   }
   return state;
 }
 
+const resultReducer = (state, action) => {
+  return action.type === NUMBER_INPUT ? '' : state;
+}
+
 const inputReducer = (state, action) => {
   return Object.assign({}, state, {
-    number: numberReducer(state.number, action, state.isFloat)
+    number: numberReducer(state.number, action, state.isFloat),
+    computed: computedReducer(state.computed, action),
+    result: resultReducer(state.result, action),
   });
 }
 
@@ -123,23 +147,28 @@ const claerReducer = (state, action) => {
   if (action.type === CLEAR) {
     return Object.assign({}, state, {
       number: '0',
-      holder: '0',
+      holder: '',
       operator: '',
+      isFloat: INTEGER_MODE,
     });
   }
   return state;
 }
 
+// Combine the initial reducer
 const rootReducer = combineReducers({
-  operator: operatorReducer,
+  operator: operatorInitialReducer,
   number: numberInitialReducer,
   holder: holderInitialReducer,
   isFloat: floatReducer,
+  computed: computedInitialReducer,
+  result: resultInitialReducer,
 });
 
+// Chain the other reducers
 export default reduceReducers(
   rootReducer,
-  operationReducer,
+  operatorReducer,
   evaluateReducer,
   inputReducer,
   claerReducer,
