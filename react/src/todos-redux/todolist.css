@@ -1,0 +1,10 @@
+
+.todo-list {
+  background-color: #5906ca;
+  max-width: 360px;
+  min-width: 320px;
+  max-height: 640px;
+  min-height: 568px;
+  width: 100%;
+  margin: auto;
+}
