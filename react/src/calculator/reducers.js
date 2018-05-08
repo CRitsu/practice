@@ -149,6 +149,7 @@ const claerReducer = (state, action) => {
       number: '0',
       holder: '',
       operator: '',
+      result: '',
       isFloat: INTEGER_MODE,
     });
   }
