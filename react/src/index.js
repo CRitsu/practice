@@ -7,6 +7,7 @@ import Spring from './animation/spring';
 import Animation from './animation/transition-test';
 import Db from './db/dbtester';
 import Calculator from './calculator/Calculator';
+import Todolist from './todos-redux/TodoList';
 
 import config from './config';
 
@@ -43,6 +44,7 @@ ReactDOM.render(
         <Route path="/animation" component={Animation.Demo1} />
         <Route path="/db-tester-nedb" component={Db} />
         <Route path="/calculator-redux" component={Calculator} />
+        <Route path="/todo-list-redux" component={Todolist} />
 
         <Route component={NoMatch} />
         
