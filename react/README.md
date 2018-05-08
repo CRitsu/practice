@@ -8,12 +8,13 @@ React Motion
 
 etc.
 
-# What's mean?!
+# Review the Demo
 
 ```
-We found a potential security vulnerability in one of your dependencies.
-A dependency defined in react/package-lock.json has known security vulnerabilities and should be updated.
-
-Only the owner of this repository can see this message.
+# First install the dependencies
+npm install
+# Then start the development server
+npm start
+# Finally visit http://localhost:3000/        
 ```
 
