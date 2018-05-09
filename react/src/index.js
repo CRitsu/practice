@@ -13,7 +13,7 @@ import config from './config';
 
 const Navigation = () => (
   <div className="nav">
-    <div className="title">{config.title}</div>
+    <div className="link-title">{config.title}</div>
     <div className="links">
       {
         config.links.map(l => (
