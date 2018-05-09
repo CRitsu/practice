@@ -1,10 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+
+.todo-list,
+.native-bar,
+.header {
+  display: flex;
+}
 
 .todo-list {
-  background-color: #5906ca;
+  background: linear-gradient(#a37cda 0%, #7632d2 20%, #117ccf 50%, #75c8d4 100%);
   max-width: 360px;
   min-width: 320px;
   max-height: 640px;
   min-height: 568px;
   width: 100%;
   margin: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 15px gray;
+  flex-direction: column;
 }
+
+.native-bar {
+  padding-top: 3px;
+  height: 15px;
+  color: white;
+  font-size: 14px;
+}
+
+.bar-items {
+  display: block;
+  height: 14px;
+}
+
+.time {
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+.signal,
+.battery {
+  width: 25px;
+  margin: 0 5px;
+  padding-top: 2px;
+}
+
+.header {
+  color: white;
+  margin: 17px 12px 0 12px;
+  height: 33px;
+  position: relative;
+}
+
+.menu {
+  display: block;
+  height: 18px;
+  margin-top: 7px;
+}
+
+.title {
+  position: relative;
+  left: -12.5px;
+  font-size: 21px;
+  flex: 1 0 auto;
+  text-align: center;
+}
+
+
