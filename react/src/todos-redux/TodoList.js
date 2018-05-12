@@ -4,7 +4,6 @@ import React from 'react';
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 import reducers from './reducers';
-import { Transition } from 'react-spring';
 
 import {
   timeUpdate,
@@ -14,6 +13,7 @@ import {
 
 import Signal from './resources/signal.svg';
 import Battery from './resources/battery.svg';
+import Skin from './resources/skin.svg';
 import './todolist.css';
 
 
@@ -29,38 +29,30 @@ const NativeBar = (props: { time: string }) => (
   </div>
 );
 
-
-const showMenu = styles => (
-  <div className="menu-content" style={styles} >
-    <div className="panel" >
-    </div>
-  </div>
-);
-
-const hideMenu = () => null;
-
 const Header = (props: {
   toggleMenu: boolean,
   handleToggleMenu: () => void,
 }) => (
-  <div className="header" >
-    <div className={`menu-wrapper ${props.toggleMenu ? 'clicked' : ''}`} >
-      <svg version="1.1" className="menu" onClick={props.handleToggleMenu} >
-        <g>
-          <rect x="0" y="0" className="menu-graph" width="25" height="2" />
-          <rect x="0" y="8" className="menu-graph" width="25" height="2" />
-          <rect x="0" y="16" className="menu-graph" width="25" height="2" />
-        </g>
-      </svg>
+    <div className="header" >
+      <div className={`menu-wrapper ${props.toggleMenu ? 'clicked' : ''}`} >
+        <svg version="1.1" className="menu" onClick={props.handleToggleMenu} >
+          <g>
+            <rect x="0" y="0" className="menu-graph" width="25" height="2" />
+            <rect x="0" y="8" className="menu-graph" width="25" height="2" />
+            <rect x="0" y="16" className="menu-graph" width="25" height="2" />
+          </g>
+        </svg>
+      </div>
+      <div className="title" >Todo List</div>
+      <div className="menu-content" style={{
+        height: props.toggleMenu ? '70px' : '0px'
+      }} >
+        <div className="panel" >
+          <img className="skin" src={Skin} alt="Skin" />
+        </div>
+      </div>
     </div>
-    <div className="title" >Todo List</div>
-    <Transition from={{ height: '0px' }}
-      enter={{ height: '70px' }}
-      leave={{ height: '0px' }} >
-      {props.toggleMenu ? showMenu : hideMenu}
-    </Transition>
-  </div>
-);
+  );
 
 const InputBox = (props: { onEnter: string => void,}) => (
   <div className="input-box" >

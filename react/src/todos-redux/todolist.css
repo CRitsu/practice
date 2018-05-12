@@ -6,6 +6,7 @@ body {
   font-size: 16px;
 }
 
+.panel,
 .menu-content,
 .menu-wrapper,
 .items,
@@ -19,6 +20,7 @@ body {
   flex-wrap: wrap;
 }
 
+.panel,
 .menu-content,
 .menu-wrapper {
   align-items: center;
@@ -78,11 +80,10 @@ body {
 
 .menu-graph {
   fill: white;
-  transition: all .5s ease;
 }
 
 .menu-wrapper.clicked .menu-graph {
-  fill: rgba(0, 0, 0, .4);
+  fill: rgba(0, 0, 0, .3);
 }
 
 .title {
@@ -101,11 +102,22 @@ body {
   overflow: hidden;
 }
 
+.menu-graph,
+.menu-content {
+  transition: all .2s ease;
+}
+
 .panel {
   background-color: white;
   border-radius: 5px;
   height: 50px;
   width: 100%;
+}
+
+.skin {
+  height: 32px;
+  width: 37px;
+  margin: 0 13px;
 }
 
 .input-box {
