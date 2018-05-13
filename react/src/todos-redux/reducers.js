@@ -12,6 +12,9 @@ import {
   TIME_UPDATE,
   TOGGLE_MENU,
   ADD_TODO,
+  TOGGLE_TODO,
+  TOGGLE_SHOW,
+  INPUT,
 } from './actions';
 
 
@@ -44,21 +47,56 @@ const todos = (state, action) => {
     let obj = {
       id: new Date().getTime(),
       message: msg,
-      completed: false
+      completed: false,
+      update: new Date().getTime()
     }
     let n = state.concat(obj);
+    // storage data
     setStorage('todos', n);
     return n;
+  } else if (action.type === TOGGLE_TODO) {
+    let s = state.slice();
+    s.forEach(element => {
+      if (element.id === action.payload.id) {
+        element.completed = !element.completed;
+        element.update = new Date().getTime();
+      }
+      return element;
+    });
+    // storage data
+    setStorage('todos', s)
+    return s;
   }
   let s = getStorage('todos');
   return s ? s : [];
 }
 
+const isShow = (state = false, action) => {
+  switch (action.type) {
+    case TOGGLE_SHOW:
+      return !state;
+    default:
+      return state;
+  }
+}
+
+const inputValue = (state = '', action) => {
+  switch (action.type) {
+    case INPUT:
+      return action.payload.value;
+    case ADD_TODO:
+      return '';
+    default:
+      return state;
+  }
+}
 
 const RootReducer = combineReducers({
   time,
+  inputValue,
   toggleMenu,
   todos,
+  isShow,
 });
 
 export default ReducerChain(

@@ -28,6 +28,12 @@ body {
   align-items: center;
 }
 
+.header,
+.native-bar,
+.input-area {
+  flex-shrink: 0;
+}
+
 .todo-list {
   background: linear-gradient(#a37cda 0%, #7632d2 15%, #117ccf 50%, #75c8d4 100%);
   min-width: 320px;
@@ -73,6 +79,7 @@ body {
 .header {
   margin: 17px 12px 5px 12px;
   position: relative;
+  height: 25px;
 }
 
 .menu-wrapper {
@@ -201,9 +208,13 @@ body {
 }
 
 .check-box::after {
-  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><defs><style>.cls-1{fill:#ddd;}</style></defs><title>circle(1)</title><path class="cls-1" d="M10.5,0A10.5,10.5,0,1,0,21,10.53v0A10.5,10.5,0,0,0,10.5,0Zm0,20A9.5,9.5,0,1,1,20,10.5,9.5,9.5,0,0,1,10.5,20Z" transform="translate(0)"/></svg>');
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><defs><style>.cls-1{fill:%23ddd;}</style></defs><title>circle(1)</title><path class="cls-1" d="M10.5,0A10.5,10.5,0,1,0,21,10.53v0A10.5,10.5,0,0,0,10.5,0Zm0,20A9.5,9.5,0,1,1,20,10.5,9.5,9.5,0,0,1,10.5,20Z" transform="translate(0)"/></svg>');
 }
 
 .check-box:checked::after {
-  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><defs><style>.cls-1{fill:#333;}.cls-2{fill:#ddd;}</style></defs><title>finishi</title><path class="cls-1" d="M18,7.27A.93.93,0,0,0,18.08,6h0a.86.86,0,0,0-1.23-.11h0l-9.3,8.21L2.92,8.44a.87.87,0,0,0-1.25-.23A.94.94,0,0,0,1.45,9.5a.4.4,0,0,0,.1.12l5.77,7.05" transform="translate(0)"/><path class="cls-2" d="M10.5,0A10.5,10.5,0,1,0,21,10.53v0A10.5,10.5,0,0,0,10.5,0Zm0,20A9.5,9.5,0,1,1,20,10.5,9.5,9.5,0,0,1,10.5,20Z" transform="translate(0)"/></svg>');
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><defs><style>.cls-1{fill:%23333;}.cls-2{fill:%23ddd;}</style></defs><title>finishi</title><path class="cls-1" d="M18,7.27A.93.93,0,0,0,18.08,6h0a.86.86,0,0,0-1.23-.11h0l-9.3,8.21L2.92,8.44a.87.87,0,0,0-1.25-.23A.94.94,0,0,0,1.45,9.5a.4.4,0,0,0,.1.12l5.77,7.05" transform="translate(0)"/><path class="cls-2" d="M10.5,0A10.5,10.5,0,1,0,21,10.53v0A10.5,10.5,0,0,0,10.5,0Zm0,20A9.5,9.5,0,1,1,20,10.5,9.5,9.5,0,0,1,10.5,20Z" transform="translate(0)"/></svg>');
+}
+
+.list {
+  overflow-y: auto;
 }
