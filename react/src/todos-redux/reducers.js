@@ -2,7 +2,11 @@
 
 import { combineReducers } from 'redux';
 import ReducerChain from 'reduce-reducers';
-import { getTime } from './utilities';
+import {
+  getTime,
+  setStorage,
+  getStorage,
+} from './utils';
 
 import {
   TIME_UPDATE,
@@ -29,16 +33,25 @@ const toggleMenu = (state = false, action) => {
   }
 }
 
-const todos = (state = [], action) => {
+
+// Todos reducer
+const todos = (state, action) => {
   if (action.type === ADD_TODO) {
+    // check null string
+    let msg = action.payload.message
+    if (!msg) return state;
+
     let obj = {
       id: new Date().getTime(),
-      message: action.payload.message,
+      message: msg,
       completed: false
     }
-    return state.concat(obj);
+    let n = state.concat(obj);
+    setStorage('todos', n);
+    return n;
   }
-  return state;
+  let s = getStorage('todos');
+  return s ? s : [];
 }
 
 

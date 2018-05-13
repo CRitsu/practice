@@ -11,3 +11,16 @@ export const getTime = () => {
   }
   return `${hours}:${minutes} ${ampm}`;
 }
+
+export const getStorage = (name) => {
+  let val = localStorage.getItem(name);
+  try {
+    return JSON.parse(val);
+  } catch (e) {
+    return val;
+  }
+}
+
+export const setStorage = (name, val) => {
+  localStorage.setItem(name, JSON.stringify(val));
+}

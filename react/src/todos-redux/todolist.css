@@ -6,6 +6,7 @@ body {
   font-size: 16px;
 }
 
+.check-box-wrapper,
 .panel,
 .menu-content,
 .menu-wrapper,
@@ -20,6 +21,7 @@ body {
   flex-wrap: wrap;
 }
 
+.check-box-wrapper,
 .panel,
 .menu-content,
 .menu-wrapper {
@@ -28,9 +30,7 @@ body {
 
 .todo-list {
   background: linear-gradient(#a37cda 0%, #7632d2 15%, #117ccf 50%, #75c8d4 100%);
-  max-width: 360px;
   min-width: 320px;
-  max-height: 640px;
   min-height: 568px;
   width: 100%;
   height: 100%;
@@ -38,6 +38,13 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 15px gray;
   flex-direction: column;
+}
+
+@media screen and (min-width: 361px) {
+  .todo-list {
+    height: 640px;
+    width: 360px;
+  }
 }
 
 .native-bar {
@@ -172,11 +179,31 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.content,
+.input-area {
   padding-right: 1rem;
 }
 
+.check-box-wrapper {
+  width: 41px;
+  height: 41px;
+  margin: 0 2px;
+}
+
 .check-box {
+  /* appearance: none; */
   width: 20px;
   height: 20px;
-  margin: 0 8px;
+  appearance: none;
+  outline: none;
+}
+
+.check-box::after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><defs><style>.cls-1{fill:#ddd;}</style></defs><title>circle(1)</title><path class="cls-1" d="M10.5,0A10.5,10.5,0,1,0,21,10.53v0A10.5,10.5,0,0,0,10.5,0Zm0,20A9.5,9.5,0,1,1,20,10.5,9.5,9.5,0,0,1,10.5,20Z" transform="translate(0)"/></svg>');
+}
+
+.check-box:checked::after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><defs><style>.cls-1{fill:#333;}.cls-2{fill:#ddd;}</style></defs><title>finishi</title><path class="cls-1" d="M18,7.27A.93.93,0,0,0,18.08,6h0a.86.86,0,0,0-1.23-.11h0l-9.3,8.21L2.92,8.44a.87.87,0,0,0-1.25-.23A.94.94,0,0,0,1.45,9.5a.4.4,0,0,0,.1.12l5.77,7.05" transform="translate(0)"/><path class="cls-2" d="M10.5,0A10.5,10.5,0,1,0,21,10.53v0A10.5,10.5,0,0,0,10.5,0Zm0,20A9.5,9.5,0,1,1,20,10.5,9.5,9.5,0,0,1,10.5,20Z" transform="translate(0)"/></svg>');
 }

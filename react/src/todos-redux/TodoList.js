@@ -62,22 +62,29 @@ const InputBox = (props: { onEnter: string => void,}) => (
   </div>
 );
 
-const ActiveList = () => (
+type todoItems = {
+  id: string,
+  message: string,
+  completed: boolean,
+}
+
+const ActiveList = (props: { todos: Array<todoItems> }) => (
   <div className="active-list" >
-    <div className="items" >
-      <div className="check-box" />
-      <div className="content" >contents</div>
-    </div>
-    <div className="items" >
-      <div className="check-box" />
-      <div className="content" >The Input Widget Event property, when set to onkeyup or onkeydown will return a keyCode of 13 under Android and iOS for my devices.</div>
-    </div>
+    {props.todos.map(item => (
+      <div className="items" key={item.id} >
+        <div className="check-box-wrapper">
+          <input className="check-box" type="checkbox" />
+        </div>
+        <div className="content" >{item.message}</div>
+      </div>
+    ))}
   </div>
 );
 
 type Props = {
   time: string,
   toggleMenu: boolean,
+  active: Array<todoItems>,
   timeUpdate: () => void,
   handleSubmit: string => void,
   handleToggleMenu: () => void,
@@ -92,6 +99,7 @@ class TodoList extends React.Component<Props> {
     const {
       time,
       toggleMenu,
+      active,
       handleToggleMenu,
       handleSubmit,
     } = this.props;
@@ -100,7 +108,7 @@ class TodoList extends React.Component<Props> {
         <NativeBar time={time} />
         <Header handleToggleMenu={handleToggleMenu} toggleMenu={toggleMenu} />
         <InputBox onEnter={handleSubmit} />
-        <ActiveList />
+        <ActiveList todos={active} />
       </div>
     )
   }
@@ -126,13 +134,12 @@ const TodoListContainer = connect(
   mapDispatchToProps
 )(TodoList);
 
-
+// Use Provider to pass store with context
 const wrapper = () => (
   <Provider store={store}>
     <TodoListContainer />
   </Provider>
 );
-
 
 
 export default wrapper;
