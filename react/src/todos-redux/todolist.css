@@ -79,7 +79,7 @@ body {
 .header {
   margin: 17px 12px 5px 12px;
   position: relative;
-  height: 25px;
+  min-height: 25px;
 }
 
 .menu-wrapper {
