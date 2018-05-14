@@ -44,13 +44,17 @@ const todos = (state, action) => {
     let msg = action.payload.message
     if (!msg) return state;
 
+    let n = state.slice();
+    
     let obj = {
       id: new Date().getTime(),
       message: msg,
       completed: false,
       update: new Date().getTime()
     }
-    let n = state.concat(obj);
+
+    n.unshift(obj);
+    
     // storage data
     setStorage('todos', n);
     return n;

@@ -6,6 +6,8 @@ body {
   font-size: 16px;
 }
 
+.mask,
+.pop-up,
 .check-box-wrapper,
 .panel,
 .menu-content,
@@ -21,6 +23,7 @@ body {
   flex-wrap: wrap;
 }
 
+.mask,
 .check-box-wrapper,
 .panel,
 .menu-content,
@@ -34,6 +37,11 @@ body {
   flex-shrink: 0;
 }
 
+.pop-up,
+.todo-list {
+  flex-direction: column;
+}
+
 .todo-list {
   background: linear-gradient(#a37cda 0%, #7632d2 15%, #117ccf 50%, #75c8d4 100%);
   min-width: 320px;
@@ -43,7 +51,6 @@ body {
   margin: auto;
   border-radius: 5px;
   box-shadow: 0 0 15px gray;
-  flex-direction: column;
 }
 
 @media screen and (min-width: 361px) {
@@ -118,7 +125,7 @@ body {
 
 .menu-graph,
 .menu-content {
-  transition: all .2s ease;
+  transition: all .2s linear;
 }
 
 .panel {
@@ -158,6 +165,7 @@ body {
   font-weight: 100;
 }
 
+.toggle-show,
 .native-bar,
 .header,
 .input-area,
@@ -217,4 +225,23 @@ body {
 
 .list {
   overflow-y: auto;
+}
+
+.toggle-show {
+  width: 180px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 5px;
+  background-color: rgba(97, 57, 180, .5);
+  margin: 12px auto;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.mask {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  justify-items: center;
 }

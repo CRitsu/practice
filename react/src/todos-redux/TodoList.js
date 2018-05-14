@@ -64,7 +64,7 @@ const InputBox = (props: {
 }) => (
   <div className="input-box" >
     <input id="input" className="input-area" placeholder="添加新任务......"
-      onKeyDown={e => { if (e.which === ENTER_KEY) props.onEnter(e.currentTarget.value) }} 
+      onKeyDown={e => { if (e.which === ENTER_KEY) props.onEnter(e.currentTarget.value) }}
       value={props.inputValue}
       onChange={e => props.handleChange(e.currentTarget.value)}
     />
@@ -89,6 +89,7 @@ const ActiveList = (props: {
         <div className="check-box-wrapper">
           <input className="check-box" type="checkbox"
             onClick={() => props.handleToggleTodo(item.id)}
+            checked={item.completed}
           />
         </div>
         <div className="content" >{item.message}</div>
@@ -105,6 +106,15 @@ const ToggleButton = (props: {
       {props.isShow ? '已完成' : '显示已完成'}
     </div>
   );
+
+const Popup = (props: {}) => (
+  <div className="mask" >
+    <div className="pop-up" >
+      <textarea />
+      <button>保存</button>
+    </div>
+  </div>
+);
 
 
 type Props = {
@@ -151,6 +161,7 @@ class TodoList extends React.Component<Props> {
           <ToggleButton isShow={isShow} handleToggleShow={handleToggleShow} />
           <ActiveList todos={completed} handleToggleTodo={handleToggleTodo} />
         </div>
+        <Popup />
       </div>
     )
   }
