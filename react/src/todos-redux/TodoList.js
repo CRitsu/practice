@@ -110,8 +110,9 @@ const ToggleButton = (props: {
 const Popup = (props: {}) => (
   <div className="mask" >
     <div className="pop-up" >
-      <textarea />
-      <button>保存</button>
+      <div className="close" >×</div>
+      <textarea className="modify" />
+      <button className="save" >保存</button>
     </div>
   </div>
 );

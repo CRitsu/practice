@@ -51,6 +51,7 @@ body {
   margin: auto;
   border-radius: 5px;
   box-shadow: 0 0 15px gray;
+  position: relative;
 }
 
 @media screen and (min-width: 361px) {
@@ -165,6 +166,9 @@ body {
   font-weight: 100;
 }
 
+.save,
+.modify,
+.pop-up,
 .toggle-show,
 .native-bar,
 .header,
@@ -243,5 +247,48 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  justify-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 99;
+}
+
+.pop-up {
+  height: 250px;
+  width: 336px;
+  background: linear-gradient(#6644c6 0%, #555cb8 30%, #4a6fac 100%);
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 5px;
+}
+
+.close {
+  font-size: 50px;
+  font-weight: 100;
+  line-height: 40px;
+  height: 40px;
+  width: 50px;
+  text-align: center;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.modify {
+  background-color: transparent;
+  border: none;
+  resize: none;
+  height: 160px;
+  font-size: 16px;
+  margin: 0 1.5rem;
+  outline: none;
+}
+
+.save {
+  width: 65px;
+  align-self: center;
+  margin: auto;
+  background-color: #6039bc81;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
 }
