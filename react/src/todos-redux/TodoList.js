@@ -12,6 +12,10 @@ import {
   addTodo,
   toggleTodo,
   toggleShow,
+  openPopup,
+  closePopup,
+  closeAndSavePopup,
+  popValueChanged,
 } from './actions';
 
 import Signal from './resources/signal.svg';
@@ -19,9 +23,10 @@ import Battery from './resources/battery.svg';
 import Skin from './resources/skin.svg';
 import './todolist.css';
 
-
+// The entry key code
 const ENTER_KEY = 13;
 
+// Signal and battery symbol
 const NativeBar = (props: { time: string }) => (
   <div className="native-bar" >
     <img className="bar-items signal" src={Signal} alt="signal" />
@@ -32,6 +37,7 @@ const NativeBar = (props: { time: string }) => (
   </div>
 );
 
+// The menu icon and title
 const Header = (props: {
   toggleMenu: boolean,
   handleToggleMenu: () => void,
@@ -57,6 +63,8 @@ const Header = (props: {
     </div>
   );
 
+
+// Input box for add todo
 const InputBox = (props: {
   onEnter: string => void,
   inputValue: string,
@@ -72,6 +80,7 @@ const InputBox = (props: {
   </div>
 );
 
+// The type definetion of todo items
 type todoItems = {
   id: number,
   message: string,
@@ -79,25 +88,30 @@ type todoItems = {
   update: number,
 }
 
+// The UI of todo list
 const ActiveList = (props: {
   todos: Array<todoItems>,
   handleToggleTodo: number => void,
+  handleOpenPopup: number => void,
 }) => (
   <div className="active-list" >
     {props.todos.map(item => (
       <div className="items" key={item.id} >
         <div className="check-box-wrapper">
           <input className="check-box" type="checkbox"
-            onClick={() => props.handleToggleTodo(item.id)}
+            onChange={() => props.handleToggleTodo(item.id)}
             checked={item.completed}
           />
         </div>
-        <div className="content" >{item.message}</div>
+        <div className="content" onClick={() => props.handleOpenPopup(item.id)} >
+          {item.message}
+        </div>
       </div>
     ))}
   </div>
 );
 
+// For toggle the completed todos display
 const ToggleButton = (props: {
   handleToggleShow: () => void,
   isShow: boolean,
@@ -107,17 +121,24 @@ const ToggleButton = (props: {
     </div>
   );
 
-const Popup = (props: {}) => (
+// Control the popup
+const Popup = (props: {
+  onClose: () => void,
+  onSave: string => void,
+  keepPopupValue: string => void,
+  popValue: string,
+}) => (
   <div className="mask" >
     <div className="pop-up" >
-      <div className="close" >×</div>
-      <textarea className="modify" />
-      <button className="save" >保存</button>
+      <div className="close" onClick={props.onClose} >×</div>
+      <textarea className="modify" value={props.popValue}
+        onChange={e => props.keepPopupValue(e.currentTarget.value)} />
+      <button className="save" onClick={props.onSave} >保存</button>
     </div>
   </div>
 );
 
-
+// The props of main UI component
 type Props = {
   time: string,
   inputValue: string,
@@ -125,20 +146,28 @@ type Props = {
   isShow: boolean,
   active: Array<todoItems>,
   completed: Array<todoItems>,
+  popValue: string,
   timeUpdate: () => void,
   handleChange: string => void,
   handleSubmit: string => void,
   handleToggleMenu: () => void,
   handleToggleTodo: number => void,
   handleToggleShow: () => void,
+  handleOpenPopup: number => void,
+  handleClosePopup: () => void,
+  handleSavePopup: string => void,
+  keepPopupValue: string => void,
+  handlePopValueChange: string => void,
 }
 
+// Main componoent
 class TodoList extends React.Component<Props> {
   componentDidMount() {
     this.props.timeUpdate();
   }
 
   render() {
+    // get the short name of props
     const {
       time,
       inputValue,
@@ -146,30 +175,46 @@ class TodoList extends React.Component<Props> {
       isShow,
       active,
       completed,
+      popValue,
       handleToggleMenu,
       handleChange,
       handleSubmit,
       handleToggleTodo,
       handleToggleShow,
+      handleOpenPopup,
+      handleClosePopup,
+      handleSavePopup,
+      keepPopupValue,
     } = this.props;
+
     return (
       <div className="todo-list">
         <NativeBar time={time} />
         <Header handleToggleMenu={handleToggleMenu} toggleMenu={toggleMenu} />
         <InputBox onEnter={handleSubmit} inputValue={inputValue} handleChange={handleChange} />
         <div className="list" >
-          <ActiveList todos={active} handleToggleTodo={handleToggleTodo} />
+          <ActiveList todos={active} handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
           <ToggleButton isShow={isShow} handleToggleShow={handleToggleShow} />
-          <ActiveList todos={completed} handleToggleTodo={handleToggleTodo} />
+          <ActiveList todos={completed} handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
         </div>
-        <Popup />
+
+        {popValue 
+          ? <Popup popValue={popValue} 
+              onClose={handleClosePopup} 
+              onSave={handleSavePopup} 
+              keepPopupValue={keepPopupValue} />
+          : null
+        }
+        
       </div>
     )
   }
 }
 
+// create main store
 const store = createStore(reducers);
 
+// State to props mapping
 const mapStateToProps = state => ({
   time: state.time,
   inputValue: state.inputValue,
@@ -177,17 +222,24 @@ const mapStateToProps = state => ({
   isShow: state.isShow,
   active: state.todos.filter(i => !i.completed),
   completed: state.isShow ? state.todos.filter(i => i.completed) : [],
+  popValue: state.popValue,
 });
 
+// dispatch function map to props
 const mapDispatchToProps = dispatch => ({
-  timeUpdate: () => { setInterval(() => dispatch(timeUpdate()), 6000) },
+  timeUpdate: () => { setInterval(() => dispatch(timeUpdate()), 60000) },
   handleChange: val => dispatch(input(val)),
   handleSubmit: string => dispatch(addTodo(string)),
   handleToggleMenu: () => dispatch(toggleMenuAction()),
   handleToggleTodo: id => dispatch(toggleTodo(id)),
   handleToggleShow: () => dispatch(toggleShow()),
+  handleOpenPopup: id => dispatch(openPopup(id)),
+  handleClosePopup: () => dispatch(closePopup()),
+  handleSavePopup: () => dispatch(closeAndSavePopup()),
+  keepPopupValue: message => dispatch(popValueChanged(message)),
 });
 
+// create the container component
 const TodoListContainer = connect(
   mapStateToProps,
   mapDispatchToProps

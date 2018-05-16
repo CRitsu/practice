@@ -9,6 +9,8 @@ export const TOGGLE_MENU = 'TOGGLE_MENU';
 export const TOGGLE_SHOW = 'TOGGLE_SHOW';
 export const OPEN_POPUP = 'OPEN_POPUP';
 export const CLOSE_POPUP = 'CLOSE_POPUP';
+export const CLOSE_AND_SAVE_POPUP = 'CLOSE_AND_SAVE_POPUP';
+export const POP_VALUE_CHANGED = 'POP_VALUE_CHANGED';
 
 
 export const timeUpdate = () => ({
@@ -44,10 +46,24 @@ export const input = val => ({
   }
 });
 
-export const openPopup = () => ({
-  type: OPEN_POPUP
+export const openPopup = id => ({
+  type: OPEN_POPUP,
+  payload: {
+    id: id,
+  }
 });
 
 export const closePopup = () => ({
   type: CLOSE_POPUP
+});
+
+export const closeAndSavePopup = () => ({
+  type: CLOSE_AND_SAVE_POPUP
+});
+
+export const popValueChanged = message => ({
+  type: POP_VALUE_CHANGED,
+  payload: {
+    message: message
+  }
 });
