@@ -16,12 +16,20 @@ import {
   closePopup,
   closeAndSavePopup,
   popValueChanged,
+  changeColor,
 } from './actions';
 
 import Signal from './resources/signal.svg';
 import Battery from './resources/battery.svg';
 import Skin from './resources/skin.svg';
 import './todolist.css';
+
+// import themes
+import Themes from './themes/index';
+import './themes/dark.css';
+import './themes/light.css';
+import './themes/orange.css';
+
 
 // The entry key code
 const ENTER_KEY = 13;
@@ -40,7 +48,9 @@ const NativeBar = (props: { time: string }) => (
 // The menu icon and title
 const Header = (props: {
   toggleMenu: boolean,
+  color: string,
   handleToggleMenu: () => void,
+  handleColorChange: string => void,
 }) => (
     <div className="header" >
       <div className={`menu-wrapper ${props.toggleMenu ? 'clicked' : ''}`} >
@@ -58,6 +68,13 @@ const Header = (props: {
       }} >
         <div className="panel" >
           <img className="skin" src={Skin} alt="Skin" />
+          <div className="skin-list" >
+            {Themes.map(i => (
+              <div key={i} className={`skin-wrapper ${i} ${props.color === i ? 'active' : ''}`} >
+                <div className="skin-item" onClick={() => props.handleColorChange(i)} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -147,6 +164,7 @@ type Props = {
   active: Array<todoItems>,
   completed: Array<todoItems>,
   popValue: string,
+  color: string,
   timeUpdate: () => void,
   handleChange: string => void,
   handleSubmit: string => void,
@@ -158,6 +176,7 @@ type Props = {
   handleSavePopup: string => void,
   keepPopupValue: string => void,
   handlePopValueChange: string => void,
+  handleColorChange: string => void,
 }
 
 // Main componoent
@@ -176,6 +195,7 @@ class TodoList extends React.Component<Props> {
       active,
       completed,
       popValue,
+      color,
       handleToggleMenu,
       handleChange,
       handleSubmit,
@@ -185,17 +205,27 @@ class TodoList extends React.Component<Props> {
       handleClosePopup,
       handleSavePopup,
       keepPopupValue,
+      handleColorChange,
     } = this.props;
 
     return (
       <div className="todo-list">
         <NativeBar time={time} />
-        <Header handleToggleMenu={handleToggleMenu} toggleMenu={toggleMenu} />
-        <InputBox onEnter={handleSubmit} inputValue={inputValue} handleChange={handleChange} />
+
+        <Header handleToggleMenu={handleToggleMenu} 
+          toggleMenu={toggleMenu} color={color} 
+          handleColorChange={handleColorChange} />
+
+        <InputBox onEnter={handleSubmit} 
+          inputValue={inputValue} handleChange={handleChange} />
+        
         <div className="list" >
-          <ActiveList todos={active} handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
-          <ToggleButton isShow={isShow} handleToggleShow={handleToggleShow} />
-          <ActiveList todos={completed} handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
+          <ActiveList todos={active} 
+            handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
+          <ToggleButton isShow={isShow} 
+            handleToggleShow={handleToggleShow} />
+          <ActiveList todos={completed} 
+            handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
         </div>
 
         {popValue 
@@ -223,6 +253,7 @@ const mapStateToProps = state => ({
   active: state.todos.filter(i => !i.completed),
   completed: state.isShow ? state.todos.filter(i => i.completed) : [],
   popValue: state.popValue,
+  color: state.color,
 });
 
 // dispatch function map to props
@@ -237,6 +268,7 @@ const mapDispatchToProps = dispatch => ({
   handleClosePopup: () => dispatch(closePopup()),
   handleSavePopup: () => dispatch(closeAndSavePopup()),
   keepPopupValue: message => dispatch(popValueChanged(message)),
+  handleColorChange: color => dispatch(changeColor(color)),
 });
 
 // create the container component

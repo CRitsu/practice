@@ -6,6 +6,8 @@ body {
   font-size: 16px;
 }
 
+.skin-wrapper,
+.skin-list,
 .mask,
 .pop-up,
 .check-box-wrapper,
@@ -23,6 +25,7 @@ body {
   flex-wrap: wrap;
 }
 
+.skin-wrapper,
 .mask,
 .check-box-wrapper,
 .panel,
@@ -140,6 +143,30 @@ body {
   height: 32px;
   width: 37px;
   margin: 0 13px;
+}
+
+.skin-list {
+  flex-grow: 1;
+  justify-content: space-evenly;
+}
+
+.skin-wrapper {
+  height: 32px;
+  width: 32px;
+  justify-content: center;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.skin-wrapper.active {
+  border: 1px solid #6347c4;
+}
+
+.skin-item {
+  background-color: #6347c4;
+  height: 26px;
+  width: 26px;
+  border-radius: 12px;
 }
 
 .input-box {

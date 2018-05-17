@@ -1,0 +1,7 @@
+.skin-wrapper.dark .skin-item {
+  background-color: black;
+}
+
+.skin-wrapper.dark {
+  border-color: black;
+}

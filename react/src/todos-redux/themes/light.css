@@ -1,0 +1,9 @@
+.skin-wrapper.light .skin-item {
+  background-image: url(../resources/skin-icon.jpg);
+  background-size: 28px 28px;
+  background-position: center;
+}
+
+.skin-wrapper.light {
+  border-color: rgb(152, 68, 45);
+}

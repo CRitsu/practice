@@ -11,6 +11,7 @@ export const OPEN_POPUP = 'OPEN_POPUP';
 export const CLOSE_POPUP = 'CLOSE_POPUP';
 export const CLOSE_AND_SAVE_POPUP = 'CLOSE_AND_SAVE_POPUP';
 export const POP_VALUE_CHANGED = 'POP_VALUE_CHANGED';
+export const CHANGE_COLOR = 'CHANGE_COLOR';
 
 
 export const timeUpdate = () => ({
@@ -65,5 +66,12 @@ export const popValueChanged = message => ({
   type: POP_VALUE_CHANGED,
   payload: {
     message: message
+  }
+});
+
+export const changeColor = color => ({
+  type: CHANGE_COLOR,
+  payload: {
+    color: color
   }
 });

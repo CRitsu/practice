@@ -21,6 +21,7 @@ import {
   CLOSE_POPUP,
   CLOSE_AND_SAVE_POPUP,
   POP_VALUE_CHANGED,
+  CHANGE_COLOR,
 } from './actions';
 
 
@@ -165,6 +166,17 @@ const handlePopupAction = (state, action) => {
   }
 }
 
+const color = (state = getStorage('color'), action) => {
+  switch (action.type) {
+    case CHANGE_COLOR:
+      // storage color
+      setStorage('color', action.payload.color);
+      return action.payload.color;
+    default:
+      return state ? state : 'default';
+  }
+}
+
 // Create root reducer
 const RootReducer = combineReducers({
   time,
@@ -174,6 +186,7 @@ const RootReducer = combineReducers({
   isShow,
   popupTarget,
   popValue,
+  color,
 });
 
 // Chain the reducers,
