@@ -229,7 +229,7 @@ class TodoList extends React.Component<Props> {
             handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
         </div>
 
-        {popValue 
+        {popValue !== null
           ? <Popup popValue={popValue} 
               onClose={handleClosePopup} 
               onSave={handleSavePopup} 
