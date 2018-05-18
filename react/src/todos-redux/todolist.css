@@ -45,6 +45,13 @@ body {
   flex-direction: column;
 }
 
+.toggle-show,
+.save,
+.close,
+.skin-wrapper {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .todo-list {
   background: linear-gradient(#a37cda 0%, #7632d2 15%, #117ccf 50%, #75c8d4 100%);
   min-width: 320px;
@@ -57,7 +64,7 @@ body {
   position: relative;
 }
 
-@media screen and (min-width: 361px) {
+@media screen and (min-width: 360px) {
   .todo-list {
     height: 640px;
     width: 360px;
@@ -154,7 +161,7 @@ body {
   height: 32px;
   width: 32px;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 15px;
   cursor: pointer;
 }
 
@@ -167,6 +174,7 @@ body {
   height: 26px;
   width: 26px;
   border-radius: 12px;
+  outline: none;
 }
 
 .input-box {
@@ -207,8 +215,13 @@ body {
 }
 
 .input-box,
-.active-list {
+.active-list,
+.completed-list {
   margin: 5px 12px 0 12px;
+}
+
+.completed-list .items {
+  color: #333;
 }
 
 .items {
@@ -255,7 +268,10 @@ body {
 }
 
 .list {
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  position: relative;
 }
 
 .toggle-show {
@@ -318,4 +334,8 @@ body {
   outline: none;
   cursor: pointer;
   font-size: 16px;
+}
+
+.save:active {
+  background-color: #6039bcc7;  
 }

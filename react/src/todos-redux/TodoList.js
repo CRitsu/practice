@@ -106,12 +106,13 @@ type todoItems = {
 }
 
 // The UI of todo list
-const ActiveList = (props: {
+const ListShow = (props: {
   todos: Array<todoItems>,
+  active?: boolean,
   handleToggleTodo: number => void,
   handleOpenPopup: number => void,
 }) => (
-  <div className="active-list" >
+  <div className={props.active ? 'active-list' : 'completed-list'} >
     {props.todos.map(item => (
       <div className="items" key={item.id} >
         <div className="check-box-wrapper">
@@ -209,7 +210,7 @@ class TodoList extends React.Component<Props> {
     } = this.props;
 
     return (
-      <div className="todo-list">
+      <div className={`todo-list ${color}`}>
         <NativeBar time={time} />
 
         <Header handleToggleMenu={handleToggleMenu} 
@@ -220,11 +221,11 @@ class TodoList extends React.Component<Props> {
           inputValue={inputValue} handleChange={handleChange} />
         
         <div className="list" >
-          <ActiveList todos={active} 
+          <ListShow todos={active} active
             handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
           <ToggleButton isShow={isShow} 
             handleToggleShow={handleToggleShow} />
-          <ActiveList todos={completed} 
+          <ListShow todos={completed}
             handleToggleTodo={handleToggleTodo} handleOpenPopup={handleOpenPopup} />
         </div>
 
