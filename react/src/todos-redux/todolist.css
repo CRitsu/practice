@@ -268,7 +268,7 @@ body {
 }
 
 .list {
-  overflow-y: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   height: 100%;
   position: relative;
