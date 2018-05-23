@@ -1,19 +1,32 @@
 import * as React from 'react';
 import './App.css';
+import {ITimeUpdateAction} from './redux/actions';
 
-import logo from './logo.svg';
 
-class App extends React.Component {
+interface ITimerProps {
+  time: string;
+}
+
+interface IProps {
+  time: string,
+  update: () => ITimeUpdateAction,
+}
+
+const Timer = (props: ITimerProps) => (
+  <div>
+    {props.time}
+  </div>
+);
+
+class App extends React.Component<IProps> {
+  public componentDidMount() {
+    setInterval(this.props.update, 1000);
+  }
+
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Timer time={this.props.time} />
       </div>
     );
   }
