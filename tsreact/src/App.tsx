@@ -1,4 +1,6 @@
+import Button from '@material-ui/core/Button';
 import * as React from 'react';
+import 'typeface-roboto';
 import './App.css';
 import {ITimeUpdateAction} from './redux/actions';
 
@@ -27,6 +29,9 @@ class App extends React.Component<IProps> {
     return (
       <div className="App">
         <Timer time={this.props.time} />
+        <Button variant="outlined" color="primary" >
+          HOME
+        </Button>
       </div>
     );
   }

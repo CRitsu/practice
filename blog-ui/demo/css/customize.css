@@ -1,0 +1,98 @@
+@media (min-width: 1200px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 767px) {
+  .bg-dark-sm {
+    background-color: #343a40 !important;
+  }
+  .mr-auto-sm {
+    margin-right: auto !important;
+  }
+}
+
+/* .nav-fill,
+.header-fill,
+.article-fill,
+.footer-fill {
+  border: 1px solid gray;
+} */
+
+.nav-fill {
+  flex: 0 0 2.5rem;
+}
+
+.header-fill {
+  flex: 0 0 8rem;
+}
+
+.footer-fill {
+  flex: 0 0 5rem;
+}
+
+.article-fill {
+  flex: 1 0 auto;
+}
+
+.menu-fill {
+  flex: 0 0 auto;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.form-control:focus {
+  border-color: #040404;
+  box-shadow: none;
+}
+
+.menu-sm {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+.menu-sm-btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+.menu-sm-btn:focus {
+  outline: none
+}
+.search-icon {
+  position: relative;
+  z-index: 1;
+  left: 0;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBhbHQ9IlNlYXJjaCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9IgogICAgICBNNi4wMjk0NSwxMC4yMDMyN2E0LjE3MzgyLDQuMTczODIsMCwxLDEsNC4xNzM4Mi00LjE3MzgyQTQuMTU2MDksNC4xNTYwOSwKICAgICAgMCwwLDEsNi4wMjk0NSwxMC4yMDMyN1ptOS42OTE5NSw0LjIxOTlMMTAuODk4OSw5LjU5OTc5QTUuODgwMjEsNS44ODAyMSwKICAgICAgMCwwLDAsMTIuMDU4LDYuMDI4NTYsNi4wMDQ2Nyw2LjAwNDY3LDAsMSwwLDkuNTk5NzksMTAuODk4OWw0LjgyMzM4LAogICAgICA0LjgyMzM4YS44OTcyOS44OTcyOSwwLDAsMCwxLjI5OTEyLDAsLjg5NzQ5Ljg5NzQ5LDAsMCwwLS4wMDA4Ny0xLjI5OTA5WiIgZmlsbD0icmdiYSgwLCAwLCAwLCAwLjUpIj48L3BhdGg+Cjwvc3ZnPg==");
+}
+
+.transition-half-s {
+  transition: all 0.5s ease;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+#search-area {
+  position: relative;
+  right: 0;
+}
